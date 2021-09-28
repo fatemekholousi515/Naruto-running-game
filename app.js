@@ -1,3 +1,4 @@
+// if kakashi toch sasuke this will happen 
 function isTouching(a, b) {
   const aRect = a.getBoundingClientRect();
   const bRect = b.getBoundingClientRect();
@@ -11,25 +12,44 @@ function isTouching(a, b) {
 }
 
 const avatar = document.querySelector("#player");
+const coin=document.querySelector('#coin')
 
 window.addEventListener("keyup", function (e) {
+
   if (e.key === "ArrowDown" || e.key === "Down") {
     const currrentTop = extractPos(avatar.style.top);
     avatar.style.top = `${currrentTop + 50}px`;
-  } else if (e.key === "ArrowUp" || e.key === "Up") {
+  } 
+  else if (e.key === "ArrowUp" || e.key === "Up") {
     const currentUp = extractPos(avatar.style.top);
     avatar.style.top = `${currentUp - 50}px`;
-  } else if (e.key === "ArrowRight" || e.key === "Right") {
+  } 
+  else if (e.key === "ArrowRight" || e.key === "Right") {
     const currentLeft = extractPos(avatar.style.left);
     avatar.style.left = `${currentLeft + 50}px`;
-  } else if (e.key === "ArrowLeft" || e.key === "Left") {
+    avatar.style.transform='scale(1,1)'
+
+  } 
+  else if (e.key === "ArrowLeft" || e.key === "Left") {
     const currentLeft = extractPos(avatar.style.left);
     avatar.style.left = `${currentLeft - 50}px`;
+    avatar.style.transform='scale(-1,1)'
   }
+  if(isTouching(avatar,coin)){
+    moveSasuke()
+  }
+  
 });
 
 const extractPos = (pos) => {
   if (!pos) return 100;
   return parseInt(pos.slice(0, -2));
-  //   console.log(pos);
 };
+
+const moveSasuke=()=>{
+  const x=Math.floor(Math.random()*window.innerWidth)
+  const y=Math.floor(Math.random()*window.innerHeight)
+  coin.style.top=`${y}px`
+  coin.style.left=`${x}px`
+
+}
